@@ -1,0 +1,105 @@
+/* 🎨 Paleta elegante */
+:root {
+  --verde-oscuro: #0b3d2e;
+  --verde-suave: #2a9d8f;
+  --verde-claro: #a8dadc;
+  --dorado: #f4d35e;
+  --blanco: #fdfdfd;
+}
+
+/* Fondo elegante */
+body {
+  background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-suave));
+  color: var(--blanco);
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Barra superior */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+}
+
+/* Botón retroceso */
+.back-btn {
+  padding: 8px 20px;
+  color: var(--dorado);
+  border: 1px solid var(--dorado);
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.back-btn:hover {
+  background: var(--dorado);
+  color: var(--verde-oscuro);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Tarjeta */
+.card-custom {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+.card-custom:hover {
+  transform: translateY(-6px);
+}
+
+/* Títulos */
+h3 {
+  color: var(--dorado);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Botones personalizados */
+.btn-custom {
+  background: var(--verde-suave);
+  color: var(--blanco);
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 25px;
+  transition: all 0.3s;
+}
+.btn-custom:hover {
+  background: var(--dorado);
+  color: var(--verde-oscuro);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Tabla */
+.table-dark {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.table-dark th {
+  color: var(--dorado);
+  font-weight: 600;
+}
+
+.table-dark td {
+  color: var(--verde-claro);
+}
+
+.table-dark a {
+  color: var(--dorado);
+  text-decoration: none;
+  font-weight: 500;
+}
+.table-dark a:hover {
+  text-decoration: underline;
+  color: var(--verde-claro);
+}

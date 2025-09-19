@@ -1,0 +1,145 @@
+/* ----- Reset & Base ----- */
+body {
+  margin: 0;
+  font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e6f8f0 0%, #ffffff 100%);
+  color: #2a5934;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ----- Navbar ----- */
+.navbar {
+  background: linear-gradient(135deg, #2a5934, #3d7750);
+}
+
+.navbar .navbar-brand {
+  color: #e0f4e9;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar .navbar-brand:hover {
+  color: #a7d7c5;
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #74c69d, #57a97a);
+  color: #fff;
+  border-radius: 25px;
+  padding: 6px 18px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(116, 198, 157, 0.4);
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #a7d7c5, #74c69d);
+  color: #2a5934;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(116, 198, 157, 0.6);
+}
+
+/* ----- Hero ----- */
+.hero {
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/crossword.png");
+  background-size: cover;
+  background-position: center;
+  color: #2a5934;
+  padding: 100px 20px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  font-weight: bold;
+  color: #2a5934;
+  animation: fadeDown 1s ease;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #4c8c6b;
+  animation: fadeUp 1.2s ease;
+}
+
+.btn-contacto {
+  background: linear-gradient(135deg, #2a5934, #3d7750);
+  color: #fff;
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(42, 89, 52, 0.3);
+}
+
+.btn-contacto:hover {
+  background: linear-gradient(135deg, #74c69d, #57a97a);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(42, 89, 52, 0.4);
+}
+
+/* ----- Sección Semanas ----- */
+#semanas h2 {
+  color: #2a5934;
+  font-weight: bold;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  background: #f0fdf7;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.card-title {
+  color: #2a5934;
+  font-weight: 600;
+}
+
+.btn-semana {
+  background: linear-gradient(135deg, #74c69d, #57a97a);
+  color: #fff;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(116, 198, 157, 0.4);
+}
+
+.btn-semana:hover {
+  background: linear-gradient(135deg, #a7d7c5, #74c69d);
+  color: #2a5934;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(116, 198, 157, 0.6);
+}
+
+/* ----- Footer ----- */
+footer {
+  background: #2a5934;
+  color: #e0f4e9;
+  font-size: 0.9rem;
+  margin-top: auto;
+  padding: 15px 0;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+}
+
+/* ----- Animaciones ----- */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
