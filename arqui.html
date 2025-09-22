@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Diario Académico</title>
+
+<!-- Librerías CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/arquitectura.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg px-3 shadow-sm">
+  <a class="navbar-brand" href="#"><i class="bi bi-journal-bookmark-fill"></i> Mi Diario Académico</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+    </ul>
+    <a href="./login.html" class="btn btn-login ms-3"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+  </div>
+</nav>
+
+<header>
+  <h1>🌸 Repositorio Académico</h1>
+  <p>Selecciona una semana para ver sus archivos</p>
+</header>
+
+<div class="container my-5">
+  <div class="row g-4" id="calendarioSemanas"></div>
+
+  <!-- Visualización de archivos -->
+  <div id="visualizacion">Selecciona un archivo para vista previa aquí</div>
+</div>
+
+<footer>
+  <p>Creado con 💖 y dedicación | Universidad Peruana Los Andes</p>
+</footer>
+
+<!-- Librerías JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const SUPABASE_URL = "https://phikuwjapkwmflnhekrg.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoaWt1d2phcGt3bWZsbmhla3JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzQ1MzIsImV4cCI6MjA3Mzc1MDUzMn0.a1bGSecYAQG4q_IOdndOo6r76CgeEGLnoODFLemQwZc";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const calendario = document.getElementById("calendarioSemanas");
+const visualizacion = document.getElementById("visualizacion");
+
+// Crear 16 tarjetas tipo calendario
+for (let i = 1; i <= 16; i++) {
+  calendario.innerHTML += `
+    <div class="col-md-3" data-aos="fade-up">
+      <div class="card card-semana" data-semana="${i}">
+        <div class="card-body">
+          <h5>📚 Semana ${i}</h5>
+          <p class="text-muted small">Clic para desplegar</p>
+        </div>
+        <div class="collapse p-3" id="semana${i}Content">
+          <div id="contenidoSemana${i}">Cargando archivos...</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// Inicializar AOS
+AOS.init();
+
+// Función para cargar archivos de cada semana
+async function cargarArchivos(semana) {
+  const carpeta = `Semana_${semana}`;
+  const { data, error } = await supabase.storage.from("chicarap").list(carpeta, { limit: 50 });
+  const contenido = document.getElementById(`contenidoSemana${semana}`);
+  if (!data || data.length === 0 || error) {
+    contenido.innerHTML = `📭 Sin archivos`;
+    return;
+  }
+
+  let html = "";
+  data.forEach(archivo => {
+    const url = `${SUPABASE_URL}/storage/v1/object/public/chicarap/${carpeta}/${archivo.name}`;
+    html += `
+      <div class="mb-2">
+        <strong>${archivo.name}</strong><br>
+        <button class="btn btn-sm btn-outline-primary me-1" onclick="verArchivo('${url}')">👁️ Ver</button>
+        <a href="${url}" download class="btn btn-sm btn-outline-success">⬇️ Descargar</a>
+      </div>`;
+  });
+  contenido.innerHTML = html;
+}
+
+// Función de vista previa en div separado
+window.verArchivo = function(url) {
+  if (url.match(/\.(jpg|jpeg|png|gif)$/i)) visualizacion.innerHTML = `<img src="${url}" alt="vista previa">`;
+  else if (url.match(/\.(pdf)$/i)) visualizacion.innerHTML = `<iframe src="${url}" width="100%" height="250"></iframe>`;
+  else visualizacion.innerHTML = `<a href="${url}" target="_blank">Abrir archivo en nueva pestaña</a>`;
+  Toastify({
+    text: "Archivo cargado en vista previa",
+    duration: 2000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "#b56576"
+  }).showToast();
+};
+
+// Detectar clic en tarjeta para desplegar acordeón y cargar archivos
+document.querySelectorAll(".card-semana").forEach(card => {
+  const semana = card.dataset.semana;
+  const collapse = card.querySelector(`#semana${semana}Content`);
+  card.addEventListener("click", () => {
+    const bsCollapse = new bootstrap.Collapse(collapse, { toggle: true });
+    cargarArchivos(semana);
+  });
+});
+</script>
+</body>
+</html>
