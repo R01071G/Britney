@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mi Diario Académico</title>
-
+<link rel="icon" type="image/png" href="img/icon2.png">
 <!-- Librerías CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -15,6 +15,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="css/arquitectura.css">
 </head>
+<!-- 🔳 Modal de Visualización Flotante -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Vista Previa del Archivo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center" id="previewContent">
+        <!-- Aquí se cargará el archivo -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <body>
 
 <nav class="navbar navbar-expand-lg px-3 shadow-sm">
@@ -24,9 +39,9 @@
   </button>
   <div class="collapse navbar-collapse ms-auto" id="navbarNav">
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
     </ul>
-    <a href="./login.html" class="btn btn-login ms-3"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="login.html" class="btn btn-login ms-3"><i class="bi bi-box-arrow-in-right"></i> Administrador(a)</a>
   </div>
 </nav>
 
@@ -38,9 +53,6 @@
 <div class="container my-5">
   <div class="row g-4" id="calendarioSemanas"></div>
 
-  <!-- Visualización de archivos -->
-  <div id="visualizacion">Selecciona un archivo para vista previa aquí</div>
-</div>
 
 <footer>
   <p>Creado con 💖 y dedicación | Universidad Peruana Los Andes</p>
@@ -107,10 +119,36 @@ async function cargarArchivos(semana) {
 }
 
 // Función de vista previa en div separado
+// Función de vista previa flotante
 window.verArchivo = function(url) {
-  if (url.match(/\.(jpg|jpeg|png|gif)$/i)) visualizacion.innerHTML = `<img src="${url}" alt="vista previa">`;
-  else if (url.match(/\.(pdf)$/i)) visualizacion.innerHTML = `<iframe src="${url}" width="100%" height="250"></iframe>`;
-  else visualizacion.innerHTML = `<a href="${url}" target="_blank">Abrir archivo en nueva pestaña</a>`;
+  const previewContent = document.getElementById("previewContent");
+  previewContent.innerHTML = ""; // limpiar modal
+
+  // Imagen
+  if (url.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    previewContent.innerHTML = `<img src="${url}" class="img-fluid rounded shadow">`;
+
+  // PDF
+  } else if (url.match(/\.pdf$/i)) {
+    previewContent.innerHTML = `<embed src="${url}" type="application/pdf" width="100%" height="600px" />`;
+
+  // PPT / PPTX (iframe Office Online)
+  } else if (url.match(/\.(ppt|pptx)$/i)) {
+    previewContent.innerHTML = `
+      <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}"
+              width="100%" height="600px" frameborder="0"></iframe>
+    `;
+
+  // Otros archivos
+  } else {
+    previewContent.innerHTML = `<p>📄 <a href="${url}" target="_blank">Abrir archivo</a></p>`;
+  }
+
+  // Mostrar modal
+  const modal = new bootstrap.Modal(document.getElementById("previewModal"));
+  modal.show();
+
+  // Notificación
   Toastify({
     text: "Archivo cargado en vista previa",
     duration: 2000,
@@ -119,6 +157,7 @@ window.verArchivo = function(url) {
     backgroundColor: "#b56576"
   }).showToast();
 };
+
 
 // Detectar clic en tarjeta para desplegar acordeón y cargar archivos
 document.querySelectorAll(".card-semana").forEach(card => {
@@ -130,5 +169,20 @@ document.querySelectorAll(".card-semana").forEach(card => {
   });
 });
 </script>
+<!-- Modal de Visualización Flotante -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Vista Previa del Archivo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center" id="previewContent">
+        <!-- Aquí se cargará el archivo -->
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
