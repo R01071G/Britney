@@ -1,63 +1,97 @@
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    color: #f8fafc;
-}
+/* ==========================
+   BASE
+========================== */
+    body {
+      background: url('../img/drean.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
 
-/* Grid de tarjetas */
+/* ==========================
+   GRID DE TARJETAS
+========================== */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
     margin-top: 30px;
+    padding: 0 20px;
 }
 
-/* Tarjeta moderna azul */
+/* ==========================
+   TARJETAS GLASSMORPHISM
+========================== */
 .semana-card {
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    color: #fff;
-    border-radius: 18px;
-    padding: 22px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    color: #e0f2fe;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    height: auto;
+    justify-content: space-between;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
 }
 
+/* Hover efecto “flotante” */
 .semana-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.3);
 }
 
+/* Icono decorativo de carpeta */
+.semana-card::before {
+    content: "📁";
+    font-size: 2.5rem;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    opacity: 0.4;
+    transition: transform 0.3s ease;
+}
+
+.semana-card:hover::before {
+    transform: rotate(15deg) scale(1.2);
+}
+
+/* Título y descripción */
 .semana-title {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 10px;
-    color: #e0f2fe;
+    margin-bottom: 12px;
+    color: #7fffd4;
+    text-shadow: 0 0 6px rgba(127,255,212,0.5);
 }
 
 .semana-desc {
     font-size: 0.95rem;
-    margin-bottom: 15px;
-    color: #f1f5f9;
+    margin-bottom: 18px;
+    color: #d0ffd0;
+    line-height: 1.5;
     opacity: 0.9;
 }
 
-/* Botón del acordeón */
+/* ==========================
+   ACORDEÓN
+========================== */
 .accordion-button {
-    background: linear-gradient(135deg, #e0f2fe, #bfdbfe) !important;
+    background: rgba(255,255,255,0.2) !important;
     color: #1e3a8a !important;
     font-weight: 600;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 12px;
     transition: 0.3s ease;
 }
 
 .accordion-button:not(.collapsed) {
-    background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
     color: #fff !important;
 }
 
@@ -66,113 +100,109 @@ body {
 }
 
 /* ==========================
-   TABLA DE ARCHIVOS CENTRADA
+   TABLA DE ARCHIVOS
 ========================== */
 .table-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow-x: auto;
     padding: 5px;
 }
 
-/* Tabla centrada y compacta */
 table {
-    width: 90%;
-    max-width: 480px;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.9);
     color: #1e293b;
     font-size: 0.9rem;
 }
 
 .table thead {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    background: linear-gradient(135deg,#1e3a8a,#3b82f6);
     color: #fff;
 }
 
 .table th, .table td {
     padding: 10px 8px;
-    vertical-align: middle;
     text-align: center;
+    vertical-align: middle;
 }
 
-/* Archivos largos truncados */
 .table td:first-child {
-    max-width: 220px;
+    max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Hover fila */
 .table tbody tr:hover {
     background-color: #e0f2fe;
     transition: background-color 0.2s ease;
 }
 
 /* ==========================
-   BOTONES AJUSTADOS E IGUALES
+   BOTONES
 ========================== */
 .table td .btn {
     font-size: 0.85rem;
     padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     min-width: 110px;
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    background: linear-gradient(135deg,#22c55e,#16a34a);
     border: none;
+    color: #fff;
 }
 
 .btn-success:hover {
-    background: linear-gradient(135deg, #15803d, #22c55e);
+    background: linear-gradient(135deg,#15803d,#22c55e);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
+    background: linear-gradient(135deg,#2563eb,#1e40af);
     border: none;
+    color: #fff;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    background: linear-gradient(135deg,#1e3a8a,#3b82f6);
 }
 
 /* ==========================
-   MODAL DE VISTA PREVIA
+   MODAL
 ========================== */
 #previewModal .modal-content {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
     color: #e0f2fe;
-    border-radius: 15px;
 }
 
 #previewModal .modal-body {
     text-align: center;
-    background-color: #f8fafc;
+    background-color: rgba(248,250,252,0.95);
     color: #1e293b;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 20px 20px;
 }
 
 #previewContent img,
 #previewContent iframe {
-    border-radius: 10px;
+    border-radius: 12px;
     max-height: 600px;
     width: 100%;
     object-fit: contain;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.25);
 }
 
 /* ==========================
    RESPONSIVE
 ========================== */
-@media (max-width: 768px) {
+@media(max-width:768px){
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
     table {
-        width: 100%;
         font-size: 0.85rem;
     }
     .table td .btn {

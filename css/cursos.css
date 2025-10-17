@@ -1,0 +1,125 @@
+/* 🌌 Fondo general */
+body {
+  background: url('img/fondo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0, 50, 0, 0.5); /* Overlay verde oscuro */
+  z-index: -1;
+}
+
+/* Navbar transparente y con blur */
+.navbar {
+  background: rgba(0,0,0,0.6) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Encabezado de cursos */
+section.text-center {
+  background: rgba(0, 50, 0, 0.7);
+  backdrop-filter: blur(6px);
+  border-radius: 15px;
+  margin: 80px 20px 20px 20px;
+  padding: 40px 20px;
+  box-shadow: 0 8px 25px rgba(0,255,0,0.4);
+}
+
+/* Contenedor de cursos */
+.contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 40px 20px;
+}
+
+/* Tarjetas de cursos */
+.curso {
+  width: 240px;
+  background: rgba(0,50,0,0.5);
+  border-radius: 20px;
+  text-align: center;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 25px rgba(0,255,0,0.4);
+  transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+  color: #baffc9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.curso:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0,255,0,0.7);
+  background: rgba(0,50,0,0.7);
+}
+
+/* Imagen del curso */
+.curso img {
+  width: 80px;
+  margin-bottom: 15px;
+  transition: transform 0.4s;
+}
+.curso:hover img {
+  transform: scale(1.2);
+}
+
+/* Info del curso */
+.curso-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #7fff00;
+  text-shadow: 0 0 5px #00ff00;
+}
+.curso-info p {
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  color: #d0ffd0;
+}
+
+/* Botón */
+.btn-custom {
+  background-color: #32cd32;
+  border: none;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-custom:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #00ff00;
+}
+
+/* Título principal centrado */
+h2.text-center {
+  text-align: center;         /* Centrado horizontal */
+  color: #7fff00;
+  text-shadow: 0 0 10px #00ff00;
+  font-size: 2rem;
+  margin: 40px 0 30px 0;      /* Margen superior e inferior */
+}
+
+
+/* Footer */
+footer {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  padding: 25px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}

@@ -1,85 +1,105 @@
+/* ----- Fondo y tipografía ----- */
 body {
-  background: linear-gradient(135deg, #1a2a6c, #2a9df4);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #eef4ff;
-  text-align: center;
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
 }
 
-.warning-box {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  padding: 50px;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 50, 0.4);
-  max-width: 500px;
-  animation: fadeIn 1s ease-in-out;
+/* ----- Contenedor central ----- */
+.acceso-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    animation: popIn 0.8s ease-out;
 }
 
-.warning-icon {
-  font-size: 65px;
-  color: #00b4d8;
-  margin-bottom: 20px;
-  animation: pulse 1.5s infinite;
+/* ----- Icono grande ----- */
+.acceso-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: bounce 1.2s infinite;
 }
 
+/* ----- Títulos y párrafos ----- */
 h1 {
-  font-size: 1.9rem;
-  font-weight: bold;
-  color: #caf0f8;
-  margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ffcc00;
+    text-shadow: 0 0 10px #ff9900;
 }
 
 p {
-  font-size: 1rem;
-  color: #e0f7ff;
-  margin-bottom: 35px;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-.btn-access,
-.btn-back {
-  border: none;
-  padding: 12px 30px;
-  border-radius: 50px;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: 0.3s ease;
-  width: 100%;
-  margin-bottom: 10px;
+.acceso-extra {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-top: 10px;
 }
 
-.btn-access {
-  background: linear-gradient(90deg, #0077b6, #0096c7);
-  box-shadow: 0 4px 10px rgba(0, 119, 182, 0.4);
+/* ----- Botones ----- */
+.btn-group a {
+    margin: 10px 5px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.btn-access:hover {
-  background: linear-gradient(90deg, #00b4d8, #48cae4);
-  transform: scale(1.05);
+.btn-primary {
+    background: #ff4e50;
+    border: none;
+    box-shadow: 0 5px 15px rgba(255,78,80,0.4);
 }
 
-.btn-back {
-  background: linear-gradient(90deg, #5e60ce, #7400b8);
-  box-shadow: 0 4px 10px rgba(94, 96, 206, 0.4);
+.btn-primary:hover {
+    background: #ff2a2f;
+    transform: scale(1.05);
 }
 
-.btn-back:hover {
-  background: linear-gradient(90deg, #6930c3, #5390d9);
-  transform: scale(1.05);
+.btn-secondary {
+    background: #333;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+.btn-secondary:hover {
+    background: #555;
+    transform: scale(1.05);
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
-  100% { transform: scale(1); opacity: 1; }
+/* ----- Animaciones ----- */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Responsivo */
+@media(max-width: 480px){
+    .acceso-container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .btn-group a {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
 }

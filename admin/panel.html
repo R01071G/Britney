@@ -5,26 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Admin - Gestión de Usuarios</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" type="image/png" href="../img/icon.png">
-  <style>
-    body {
-      background: linear-gradient(135deg, #e0f2fe, #ffffff);
-      font-family: "Inter", sans-serif;
-    }
-  </style>
-    <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" type="image/png" href="../img/icon2.png">
+  <link rel="stylesheet" href="../admincss/panel.css">
+<link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body class="text-gray-800">
-  <!-- 🔹 NAVBAR -->
-  <nav class="bg-blue-700 text-white px-6 py-4 flex justify-between items-center shadow-md">
-    <h1 class="text-xl font-bold">⚙️ Panel de Administración</h1>
-    <ul class="flex gap-6 text-sm font-medium">
-      <li><a href="panel.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Usuarios</a></li>
-      <li><a href="archivos.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Archivos</a></li>
-      <li><button id="cerrarSesion" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Cerrar Sesión</button></li>
-    </ul>
-  </nav>
+<!-- 🔹 NAVBAR -->
+<nav class="bg-green-700 text-white px-6 py-4 flex justify-between items-center shadow-md rounded-b-xl">
+  <h1 class="text-xl font-bold">Administrador</h1>
+  <ul class="flex gap-6 text-sm font-medium">
+    <li><a href="panel.html" class="hover:text-green-200 border-b-2 border-transparent hover:border-white">Usuarios</a></li>
+    <li><a href="archivos.html" class="hover:text-green-200 border-b-2 border-transparent hover:border-white">Archivos</a></li>
+    <li><button id="cerrarSesion" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Cerrar Sesión</button></li>
+  </ul>
+</nav>
+
 
   <!-- 🔹 CONTENIDO -->
   <main class="max-w-6xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl transition-transform transform hover:scale-[1.01]">
@@ -70,8 +66,8 @@
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
     const supabase = createClient(
-      "https://bkmrymsbcnqrxltsmxxm.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrbXJ5bXNiY25xcnhsdHNteHhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzM2MTksImV4cCI6MjA3Mzc0OTYxOX0.Z4puY5w_Gb7GbbpipawQQ755MKsJcJUeyra7-XnL5as"
+      "https://phikuwjapkwmflnhekrg.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoaWt1d2phcGt3bWZsbmhla3JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzQ1MzIsImV4cCI6MjA3Mzc1MDUzMn0.a1bGSecYAQG4q_IOdndOo6r76CgeEGLnoODFLemQwZc"
     );
 
     const tabla = document.getElementById("tablaUsuarios");

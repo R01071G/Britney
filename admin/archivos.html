@@ -11,111 +11,121 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
     <link rel="stylesheet" href="../admincss/archivos.css">
-  <link rel="icon" type="image/png" href="../img/icon.png">
+  <link rel="icon" type="image/png" href="../img/icon2.png">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="bg-gray-100 font-sans">
-  <!-- 🔹 NAVBAR SUPERIOR -->
-  <nav class="bg-blue-700 text-white px-6 py-4 flex justify-between items-center shadow-md">
-    <h1 class="text-xl font-bold">⚙️ Panel de Administración</h1>
-    <ul class="flex gap-6 text-sm font-medium">
-      <li><a href="panel.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Usuarios</a></li>
-      <li><a href="archivos.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Archivos</a></li>
-      <li><button id="cerrarSesion" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Cerrar Sesión</button></li>
-    </ul>
-  </nav>
+<!-- 🔹 NAVBAR SUPERIOR -->
+<nav class="bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-4 flex justify-between items-center shadow-md rounded-b-xl">
+  <h1 class="text-xl font-bold">⚙️ Panel de Administración</h1>
+  <ul class="flex gap-6 text-sm font-medium">
+    <li>
+      <a href="panel.html" class="hover:text-green-100 border-b-2 border-transparent hover:border-white transition-all">
+        Usuarios
+      </a>
+    </li>
+    <li>
+      <a href="archivos.html" class="hover:text-green-100 border-b-2 border-transparent hover:border-white transition-all">
+        Archivos
+      </a>
+    </li>
+    <li>
+      <button id="cerrarSesion" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded transition-all">
+        Cerrar Sesión
+      </button>
+    </li>
+  </ul>
+</nav>
+
   
 <div class="container mx-auto py-8 px-4">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- Subir archivos -->
-    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
-      <h2 class="text-xl font-semibold text-blue-600 mb-4">📤 Subir Trabajo Semanal</h2>
-      <form id="formUpload" class="space-y-4">
-        <div>
-          <label for="curso" class="block text-sm font-medium text-gray-700">Seleccionar Curso</label>
-          <select id="curso" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
-            <option value="arquitectura">Arquitectura de Software</option>
-            <option value="legislacion">Legislación Informática</option>
-            <option value="ingles">Inglés IV</option>
-            <option value="investigacion">Taller de Investigación 1</option>
-            <option value="comercio">Comercio Electrónico</option>
-            <option value="gobierno">Gobierno de TI</option>
-            <option value="ml">Machine Learning (Electivo)</option>
-            <option value="seguridad">Seguridad de la Infraestructura de TI 1</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="semana" class="block text-sm font-medium text-gray-700">Seleccionar Semana</label>
-          <select id="semana" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
-            <!-- Se generan semanas con JS -->
-          </select>
-        </div>
-
-        <div>
-          <label for="archivo" class="block text-sm font-medium text-gray-700">Archivo</label>
-          <input type="file" id="archivo" class="mt-1 block w-full text-gray-700 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
-        </div>
-
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-full shadow hover:bg-blue-700 transition font-medium">Subir</button>
-      </form>
-      <p id="estado" class="mt-3 text-gray-600 font-medium"></p>
+<!-- Subir archivos -->
+<div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
+  <h2 class="text-xl font-semibold text-green-600 mb-4">📤 Subir Trabajo Semanal</h2>
+  <form id="formUpload" class="space-y-4">
+    <div>
+      <label for="curso" class="block text-sm font-medium text-black">Seleccionar Curso</label>
+      <select id="curso" class="mt-1 block w-full rounded-lg border border-green-400 shadow-sm focus:ring-green-500 focus:border-green-500 text-black">
+        <option value="arquitectura">Arquitectura de Software</option>
+        <option value="legislacion">Legislación Informática</option>
+        <option value="ingles">Inglés IV</option>
+        <option value="investigacion">Taller de Investigación 1</option>
+        <option value="comercio">Comercio Electrónico</option>
+        <option value="gobierno">Gobierno de TI</option>
+        <option value="ml">Machine Learning (Electivo)</option>
+        <option value="seguridad">Seguridad de la Infraestructura de TI 1</option>
+      </select>
     </div>
 
-    <!-- Lista y previsualización -->
-    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition flex flex-col">
-      <h2 class="text-xl font-semibold text-green-600 mb-4">📂 Listado de Archivos</h2>
-
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label for="filtroCurso" class="block text-sm font-medium text-gray-700">Filtrar por Curso</label>
-          <select id="filtroCurso" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500">
-            <option value="arquitectura">Arquitectura de Software</option>
-            <option value="legislacion">Legislación Informática</option>
-            <option value="ingles">Inglés IV</option>
-            <option value="investigacion">Taller de Investigación 1</option>
-            <option value="comercio">Comercio Electrónico</option>
-            <option value="gobierno">Gobierno de TI</option>
-            <option value="ml">Machine Learning (Electivo)</option>
-            <option value="seguridad">Seguridad de la Infraestructura de TI 1</option>
-          </select>
-        </div>
-        <div>
-          <label for="filtroSemana" class="block text-sm font-medium text-gray-700">Filtrar por Semana</label>
-          <select id="filtroSemana" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500">
-            <!-- Se generan semanas con JS -->
-          </select>
-        </div>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 shadow rounded-lg overflow-hidden">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Archivo</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Curso</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Semana</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Fecha</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="listaArchivos" class="bg-white divide-y divide-gray-200">
-            <tr><td colspan="5" class="text-center text-gray-400 py-4">Selecciona un curso y semana</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div>
+      <label for="semana" class="block text-sm font-medium text-black">Seleccionar Semana</label>
+      <select id="semana" class="mt-1 block w-full rounded-lg border border-green-400 shadow-sm focus:ring-green-500 focus:border-green-500 text-black">
+        <!-- Se generan semanas con JS -->
+      </select>
     </div>
 
+    <div>
+      <label for="archivo" class="block text-sm font-medium text-black">Archivo</label>
+      <input type="file" id="archivo" class="mt-1 block w-full border border-green-400 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 text-black">
+    </div>
+
+    <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-full shadow hover:bg-green-700 transition font-medium">Subir</button>
+  </form>
+  <p id="estado" class="mt-3 font-medium text-black"></p>
+</div>
+
+<!-- Lista y previsualización -->
+<div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition flex flex-col mt-6">
+  <h2 class="text-xl font-semibold text-green-600 mb-4">📂 Listado de Archivos</h2>
+
+  <div class="grid grid-cols-2 gap-4 mb-4">
+    <div>
+      <label for="filtroCurso" class="block text-sm font-medium text-black">Filtrar por Curso</label>
+      <select id="filtroCurso" class="mt-1 block w-full rounded-lg border border-green-400 shadow-sm focus:ring-green-500 focus:border-green-500 text-black">
+        <option value="arquitectura">Arquitectura de Software</option>
+        <option value="legislacion">Legislación Informática</option>
+        <option value="ingles">Inglés IV</option>
+        <option value="investigacion">Taller de Investigación 1</option>
+        <option value="comercio">Comercio Electrónico</option>
+        <option value="gobierno">Gobierno de TI</option>
+        <option value="ml">Machine Learning (Electivo)</option>
+        <option value="seguridad">Seguridad de la Infraestructura de TI 1</option>
+      </select>
+    </div>
+    <div>
+      <label for="filtroSemana" class="block text-sm font-medium text-black">Filtrar por Semana</label>
+      <select id="filtroSemana" class="mt-1 block w-full rounded-lg border border-green-400 shadow-sm focus:ring-green-500 focus:border-green-500 text-black">
+        <!-- Se generan semanas con JS -->
+      </select>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 shadow rounded-lg overflow-hidden">
+      <thead class="bg-green-50">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-medium text-black">Archivo</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-black">Curso</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-black">Semana</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-black">Fecha</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-black">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="listaArchivos" class="bg-white divide-y divide-gray-200">
+        <tr><td colspan="5" class="text-center text-black py-4">Selecciona un curso y semana</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
 
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SUPABASE_URL = "https://bkmrymsbcnqrxltsmxxm.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrbXJ5bXNiY25xcnhsdHNteHhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzM2MTksImV4cCI6MjA3Mzc0OTYxOX0.Z4puY5w_Gb7GbbpipawQQ755MKsJcJUeyra7-XnL5as";
-
+const SUPABASE_URL = "https://phikuwjapkwmflnhekrg.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoaWt1d2phcGt3bWZsbmhla3JnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzQ1MzIsImV4cCI6MjA3Mzc1MDUzMn0.a1bGSecYAQG4q_IOdndOo6r76CgeEGLnoODFLemQwZc"
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const form = document.getElementById("formUpload");
@@ -159,7 +169,7 @@ form.addEventListener("submit", async (e) => {
 
   const fecha = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
   const filePath = `${semana}/${fecha}_${archivo.name}`;
-  const { error } = await supabase.storage.from("hola").upload(filePath, archivo);
+  const { error } = await supabase.storage.from("chicarap").upload(filePath, archivo);
 
   if (error) {
     estado.textContent = "❌ Error al subir: " + error.message;
@@ -177,7 +187,7 @@ form.addEventListener("submit", async (e) => {
 });
 
 function agregarFilaArchivo(nombreArchivo, curso, semana, filePath) {
-  const { data: urlData } = supabase.storage.from("hola").getPublicUrl(filePath);
+  const { data: urlData } = supabase.storage.from("chicarap").getPublicUrl(filePath);
   const publicUrl = urlData.publicUrl;
 
   const timestamp = parseInt(filePath.split("/")[1].split("_")[0]);
@@ -203,7 +213,7 @@ row.innerHTML = `
   // Borrar archivo
   row.querySelector(".del-btn").addEventListener("click", async () => {
     if (!confirm("¿Seguro que deseas borrar este archivo?")) return;
-    const { error } = await supabase.storage.from("hola").remove([filePath]);
+    const { error } = await supabase.storage.from("chicarap").remove([filePath]);
     if (error) alert("❌ Error al borrar: " + error.message);
     else row.remove();
   });
@@ -229,7 +239,7 @@ row.querySelector(".mod-btn").addEventListener("click", async () => {
   console.log("✅ Nombre limpio final:", nombreFinal);
 
   // Descargar original
-  const { data: fileData, error: downloadError } = await supabase.storage.from("hola").download(filePath);
+  const { data: fileData, error: downloadError } = await supabase.storage.from("chicarap").download(filePath);
   if (downloadError) {
     alert("❌ Error al obtener archivo: " + downloadError.message);
     return;
@@ -237,14 +247,14 @@ row.querySelector(".mod-btn").addEventListener("click", async () => {
 
   // Subir con nuevo nombre en la nueva semana
   const nuevoPath = `${nuevaSemana}/${Date.now()}_${normalizar(nuevoNombre)}`;
-  const { error: uploadError } = await supabase.storage.from("hola").upload(nuevoPath, fileData);
+  const { error: uploadError } = await supabase.storage.from("chicarap").upload(nuevoPath, fileData);
   if (uploadError) {
     alert("❌ Error al subir nuevo archivo: " + uploadError.message);
     return;
   }
 
   // Borrar original
-  await supabase.storage.from("hola").remove([filePath]);
+  await supabase.storage.from("chicarap").remove([filePath]);
 
   // Refrescar tabla de la semana actual
   listarArchivos(semana);
@@ -261,7 +271,7 @@ async function listarArchivos(semana) {
   preview.innerHTML = `<p class="text-muted">Selecciona un archivo para previsualizar.</p>`;
 
   try {
-    const { data, error } = await supabase.storage.from("hola").list(semana, { limit: 100 });
+    const { data, error } = await supabase.storage.from("chicarap").list(semana, { limit: 100 });
     if (error) {
       listaArchivos.innerHTML = `<tr><td colspan="5" class="text-danger">❌ Error: ${error.message}</td></tr>`;
       return;

@@ -11,10 +11,14 @@ const form = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
 const googleLoginBtn = document.getElementById("googleLogin");
 
-// 🟢 Login con correo y contraseña
+// 🔹 Redirect URI según entorno
+const redirectUri = window.location.hostname.includes("github.io")
+  ? "https://r01071g.github.io/Britney/index.html"
+  : window.location.origin + "/index.html";
+
+// 🟢 Login con correo y contraseña simplificado
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
@@ -37,10 +41,9 @@ form.addEventListener("submit", async (e) => {
 
     if (error) throw error;
 
-    // ✅ Login correcto → redirigir al index
     errorMessage.textContent = "✅ Bienvenido, redirigiendo...";
     errorMessage.style.color = "green";
-    setTimeout(() => (window.location.href = "index.html"), 1500);
+    setTimeout(() => (window.location.href = redirectUri), 1500);
 
   } catch (err) {
     console.error("Error al iniciar sesión:", err);
@@ -56,7 +59,7 @@ googleLoginBtn.addEventListener("click", async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/index.html", // ✅ Corregido el slash
+        redirectTo: redirectUri,
       },
     });
 
