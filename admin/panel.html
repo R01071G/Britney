@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin - Gestión de Usuarios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="../img/icon.png">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f2fe, #ffffff);
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="text-gray-800">
+  <!-- 🔹 NAVBAR -->
+  <nav class="bg-blue-700 text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <h1 class="text-xl font-bold">⚙️ Panel de Administración</h1>
+    <ul class="flex gap-6 text-sm font-medium">
+      <li><a href="panel.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Usuarios</a></li>
+      <li><a href="archivos.html" class="hover:text-gray-200 border-b-2 border-transparent hover:border-white">Archivos</a></li>
+      <li><button id="cerrarSesion" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Cerrar Sesión</button></li>
+    </ul>
+  </nav>
+
+  <!-- 🔹 CONTENIDO -->
+  <main class="max-w-6xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl transition-transform transform hover:scale-[1.01]">
+    <h2 class="text-3xl font-semibold text-blue-600 mb-6 text-center">👥 Gestión de Usuarios</h2>
+
+    <!-- FORMULARIO -->
+    <form id="crearUsuarioForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 bg-blue-50 p-5 rounded-lg shadow-inner">
+      <input type="email" id="email" placeholder="Correo electrónico" required 
+        class="border border-blue-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+      <input type="password" id="password" placeholder="Contraseña" required 
+        class="border border-blue-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+      <select id="rol" class="border border-blue-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <option value="user">Usuario</option>
+        <option value="admin">Administrador</option>
+      </select>
+      <button type="submit" 
+        class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+        ➕ Crear
+      </button>
+    </form>
+
+    <p id="estado" class="text-sm mb-4 text-center"></p>
+
+    <!-- TABLA -->
+    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+      <table class="w-full text-sm border-collapse">
+        <thead class="bg-blue-100">
+          <tr>
+            <th class="border p-3 text-left">Correo</th>
+            <th class="border p-3 text-left">Rol</th>
+            <th class="border p-3 text-left">Creado</th>
+            <th class="border p-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaUsuarios">
+          <tr><td colspan="4" class="text-center py-4 text-gray-500">⏳ Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabase = createClient(
+      "https://bkmrymsbcnqrxltsmxxm.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrbXJ5bXNiY25xcnhsdHNteHhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNzM2MTksImV4cCI6MjA3Mzc0OTYxOX0.Z4puY5w_Gb7GbbpipawQQ755MKsJcJUeyra7-XnL5as"
+    );
+
+    const tabla = document.getElementById("tablaUsuarios");
+    const estado = document.getElementById("estado");
+    const form = document.getElementById("crearUsuarioForm");
+
+    // 🛡️ Verificación de admin
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        alert("🔒 Debes iniciar sesión como administrador.");
+        location.href = "loginadmin.html";
+        return;
+      }
+
+      const { data: perfil, error } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (error || !perfil || perfil.role !== "admin") {
+        alert("🚫 Acceso denegado. Solo administradores.");
+        await supabase.auth.signOut();
+        location.href = "loginadmin.html";
+        return;
+      }
+
+      listarUsuarios();
+    })();
+
+    // 🔹 Listar usuarios
+    async function listarUsuarios() {
+      const { data, error } = await supabase.from("profiles").select("*").order("created_at", { ascending: false });
+
+      if (error) {
+        tabla.innerHTML = `<tr><td colspan="4" class="text-center text-red-500">❌ Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (!data.length) {
+        tabla.innerHTML = `<tr><td colspan="4" class="text-center text-gray-500">📭 No hay usuarios registrados</td></tr>`;
+        return;
+      }
+
+      tabla.innerHTML = "";
+      data.forEach(u => {
+        const row = document.createElement("tr");
+        row.className = "hover:bg-blue-50 transition";
+        row.innerHTML = `
+          <td class="border p-3">${u.email}</td>
+          <td class="border p-3">
+            <select data-id="${u.id}" class="rolSelect border rounded p-1 focus:ring-2 focus:ring-blue-500">
+              <option value="user" ${u.role === "user" ? "selected" : ""}>Usuario</option>
+              <option value="admin" ${u.role === "admin" ? "selected" : ""}>Admin</option>
+            </select>
+          </td>
+          <td class="border p-3">${new Date(u.created_at).toLocaleString()}</td>
+          <td class="border p-3 text-center">
+            <button data-id="${u.id}" class="borrarBtn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">🗑️</button>
+          </td>
+        `;
+        tabla.appendChild(row);
+      });
+
+      // 🔸 Cambiar rol
+      document.querySelectorAll(".rolSelect").forEach(sel => {
+        sel.addEventListener("change", async e => {
+          const id = e.target.dataset.id;
+          const nuevoRol = e.target.value;
+          await supabase.from("profiles").update({ role: nuevoRol }).eq("id", id);
+          alert("✅ Rol actualizado correctamente.");
+        });
+      });
+
+      // 🔸 Borrar usuario
+      document.querySelectorAll(".borrarBtn").forEach(btn => {
+        btn.addEventListener("click", async e => {
+          const id = e.target.dataset.id;
+          if (!confirm("¿Seguro que deseas eliminar este usuario?")) return;
+          await supabase.from("profiles").delete().eq("id", id);
+          listarUsuarios();
+        });
+      });
+    }
+
+    // 🔹 Crear usuario
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const role = document.getElementById("rol").value;
+
+      estado.textContent = "⏳ Creando usuario...";
+      estado.className = "text-gray-500";
+
+      const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
+      if (authError) {
+        estado.textContent = "❌ Error: " + authError.message;
+        estado.className = "text-red-500";
+        return;
+      }
+
+      const userId = authData?.user?.id;
+      if (!userId) {
+        estado.textContent = "⚠️ No se obtuvo el ID del usuario.";
+        return;
+      }
+
+      await supabase.from("profiles").insert([{ id: userId, email, role }]);
+      estado.textContent = "✅ Usuario creado correctamente.";
+      estado.className = "text-green-600";
+      form.reset();
+      listarUsuarios();
+    });
+
+    // 🔹 Cerrar sesión
+    document.getElementById("cerrarSesion").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      location.href = "loginadmin.html";
+    });
+  </script>
+</body>
+</html>
